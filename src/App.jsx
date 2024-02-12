@@ -3,7 +3,7 @@ import { AuthLayout, RootLayout } from "./components";
 import {
   Login,
   Register,
-  ForgetPassword,
+  ForgotPassword,
   Home,
   Recipes,
   Categories,
@@ -21,7 +21,7 @@ const App = () => {
         { index: true, element: <Login /> },
         { path: "login", element: <Login /> },
         { path: "register", element: <Register /> },
-        { path: "forget-password", element: <ForgetPassword /> },
+        { path: "forgot-password", element: <ForgotPassword /> },
       ],
     },
     {
@@ -30,7 +30,6 @@ const App = () => {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
-        { path: "home", element: <Home /> },
         { path: "categories", element: <Categories /> },
         { path: "recipes", element: <Recipes /> },
         { path: "users", element: <Users /> },
