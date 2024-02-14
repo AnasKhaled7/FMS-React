@@ -46,13 +46,13 @@ const ResetPassword = () => {
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           {/* email input */}
-          <div className="input-group input-group-lg flex-nowrap">
+          <div className="input-group">
             <span className="input-group-text">
               <i className="fa-solid fa-envelope"></i>
             </span>
             <input
               type="email"
-              className="form-control fs-6"
+              className="form-control"
               placeholder="Enter your E-mail"
               autoComplete="email"
               {...register("email", {
@@ -71,13 +71,13 @@ const ResetPassword = () => {
           )}
 
           {/* OTP input */}
-          <div className="input-group input-group-lg flex-nowrap mt-4">
+          <div className="input-group mt-4">
             <span className="input-group-text">
               <i className="fa-solid fa-lock"></i>
             </span>
             <input
               type="text"
-              className="form-control fs-6"
+              className="form-control"
               placeholder="OTP"
               autoComplete="off"
               {...register("seed", {
@@ -100,13 +100,13 @@ const ResetPassword = () => {
           )}
 
           {/* new password input */}
-          <div className="input-group input-group-lg flex-nowrap mt-4">
+          <div className="input-group mt-4">
             <span className="input-group-text">
               <i className="fa-solid fa-lock"></i>
             </span>
             <input
               type={showPassword ? "text" : "password"}
-              className="form-control fs-6"
+              className="form-control"
               placeholder="New Password"
               autoComplete="new-password"
               {...register("password", {
@@ -142,13 +142,13 @@ const ResetPassword = () => {
           )}
 
           {/* confirm password input */}
-          <div className="input-group input-group-lg flex-nowrap mt-4">
+          <div className="input-group mt-4">
             <span className="input-group-text">
               <i className="fa-solid fa-lock"></i>
             </span>
             <input
               type={showPassword ? "text" : "password"}
-              className="form-control fs-6"
+              className="form-control"
               placeholder="Confirm New Password"
               autoComplete="new-password"
               {...register("confirmPassword", {

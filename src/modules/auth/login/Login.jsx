@@ -45,13 +45,13 @@ const Login = ({ saveUserData }) => {
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           {/* email input */}
-          <div className="input-group input-group-lg flex-nowrap">
+          <div className="input-group">
             <span className="input-group-text">
               <i className="fa-solid fa-envelope"></i>
             </span>
             <input
               type="email"
-              className="form-control fs-6"
+              className="form-control"
               placeholder="Enter your E-mail"
               autoComplete="email"
               {...register("email", {
@@ -70,13 +70,13 @@ const Login = ({ saveUserData }) => {
           )}
 
           {/* password input */}
-          <div className="input-group input-group-lg flex-nowrap mt-4">
+          <div className="input-group mt-4">
             <span className="input-group-text">
               <i className="fa-solid fa-lock"></i>
             </span>
             <input
               type={showPassword ? "text" : "password"}
-              className="form-control fs-6"
+              className="form-control"
               placeholder="Password"
               autoComplete="current-password"
               {...register("password", { required: "Password is required" })}

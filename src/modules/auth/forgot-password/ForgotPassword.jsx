@@ -36,13 +36,13 @@ const ForgotPassword = () => {
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           {/* email input */}
-          <div className="input-group input-group-lg flex-nowrap">
+          <div className="input-group">
             <span className="input-group-text">
               <i className="fa-solid fa-envelope"></i>
             </span>
             <input
               type="email"
-              className="form-control fs-6"
+              className="form-control"
               placeholder="Enter your E-mail"
               autoComplete="email"
               {...register("email", {
