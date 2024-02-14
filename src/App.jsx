@@ -12,6 +12,7 @@ import {
   Categories,
   Users,
   NotFound,
+  ResetPassword,
 } from "./modules";
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
         { path: "login", element: <Login saveUserData={saveUserData} /> },
         { path: "register", element: <Register /> },
         { path: "forgot-password", element: <ForgotPassword /> },
+        { path: "reset-password", element: <ResetPassword /> },
       ],
     },
     {

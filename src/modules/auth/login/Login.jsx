@@ -11,9 +11,8 @@ const Login = ({ saveUserData }) => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const toggleShowPassword = () => {
+  const toggleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
 
   const {
     register,
@@ -44,7 +43,7 @@ const Login = ({ saveUserData }) => {
           text="Welcome Back! Please enter your details"
         />
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
           {/* email input */}
           <div className="input-group input-group-lg flex-nowrap">
             <span className="input-group-text">
@@ -54,7 +53,7 @@ const Login = ({ saveUserData }) => {
               type="email"
               className="form-control fs-6"
               placeholder="Enter your E-mail"
-              autoComplete="username"
+              autoComplete="email"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
