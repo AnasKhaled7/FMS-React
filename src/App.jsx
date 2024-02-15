@@ -48,12 +48,12 @@ const App = () => {
       path: "/dashboard",
       element: (
         <ProtectedRoute userData={userData}>
-          <RootLayout />
+          <RootLayout userData={userData} />
         </ProtectedRoute>
       ),
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Home /> },
+        { index: true, element: <Home userData={userData} /> },
         { path: "categories", element: <Categories /> },
         { path: "recipes", element: <Recipes /> },
         { path: "users", element: <Users /> },
