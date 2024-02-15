@@ -46,14 +46,14 @@ const ResetPassword = () => {
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           {/* email input */}
-          <div className="input-group">
+          <div className="input-group input-group-lg">
             <span className="input-group-text">
               <i className="fa-solid fa-envelope"></i>
             </span>
             <input
               type="email"
               className="form-control"
-              placeholder="Enter your E-mail"
+              placeholder="Enter your email"
               autoComplete="email"
               {...register("email", {
                 required: "Email is required",
@@ -71,7 +71,7 @@ const ResetPassword = () => {
           )}
 
           {/* OTP input */}
-          <div className="input-group mt-4">
+          <div className="input-group input-group-lg mt-4">
             <span className="input-group-text">
               <i className="fa-solid fa-lock"></i>
             </span>
@@ -100,7 +100,7 @@ const ResetPassword = () => {
           )}
 
           {/* new password input */}
-          <div className="input-group mt-4">
+          <div className="input-group input-group-lg mt-4">
             <span className="input-group-text">
               <i className="fa-solid fa-lock"></i>
             </span>
@@ -142,7 +142,7 @@ const ResetPassword = () => {
           )}
 
           {/* confirm password input */}
-          <div className="input-group mt-4">
+          <div className="input-group input-group-lg mt-4">
             <span className="input-group-text">
               <i className="fa-solid fa-lock"></i>
             </span>
