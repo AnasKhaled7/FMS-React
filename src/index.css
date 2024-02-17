@@ -9,7 +9,9 @@
 }
 
 .header-container {
-    background-color: #009247;
+    background-image: url("./assets/header-bg.png");
+    background-size: cover;
+    background-position: center;
     padding: 30px;
     display: flex;
     justify-content: space-between;
