@@ -9,9 +9,15 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const toggleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
+
+  const toggleShowConfirmPassword = () =>
+    setShowConfirmPassword(
+      (prevShowConfirmPassword) => !prevShowConfirmPassword
+    );
 
   const {
     register,
@@ -28,11 +34,11 @@ const ResetPassword = () => {
         "https://upskilling-egypt.com:443/api/v1/Users/Reset",
         data
       );
+      toast.success(result?.data?.message);
       navigate("/login");
-      toast.success(result.data.message);
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message || "An error occurred");
+      toast.error(error?.response?.data?.message || "An error occurred");
     }
   };
 
@@ -58,7 +64,8 @@ const ResetPassword = () => {
               {...register("email", {
                 required: "Email is required",
                 pattern: {
-                  value: /\S+@\S+\.\S+/,
+                  value:
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                   message: "Email is invalid",
                 },
               })}
@@ -147,7 +154,7 @@ const ResetPassword = () => {
               <i className="fa-solid fa-lock"></i>
             </span>
             <input
-              type={showPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               className="form-control"
               placeholder="Confirm New Password"
               autoComplete="new-password"
@@ -160,11 +167,13 @@ const ResetPassword = () => {
             <button
               type="button"
               className="btn btn-outline-secondary"
-              onClick={toggleShowPassword}
+              onClick={toggleShowConfirmPassword}
             >
               <i
                 className={
-                  showPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"
+                  showConfirmPassword
+                    ? "fa-solid fa-eye-slash"
+                    : "fa-solid fa-eye"
                 }
               ></i>
             </button>

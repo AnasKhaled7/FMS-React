@@ -19,10 +19,10 @@ const ForgotPassword = () => {
         "https://upskilling-egypt.com:443/api/v1/Users/Reset/Request",
         data
       );
+      toast.success(result?.data?.message);
       navigate("/reset-password");
-      toast.success(result.data.message);
     } catch (error) {
-      toast.error(error.response.data.message || "An error occurred");
+      toast.error(error?.response?.data?.message || "An error occurred");
     }
   };
 
@@ -48,7 +48,8 @@ const ForgotPassword = () => {
               {...register("email", {
                 required: "Email is required",
                 pattern: {
-                  value: /\S+@\S+\.\S+/,
+                  value:
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                   message: "Email is invalid",
                 },
               })}

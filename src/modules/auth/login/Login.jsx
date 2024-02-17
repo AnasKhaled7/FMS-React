@@ -26,12 +26,12 @@ const Login = ({ saveUserData }) => {
         "https://upskilling-egypt.com:443/api/v1/Users/Login",
         data
       );
-      localStorage.setItem("token", result.data.token);
+      localStorage.setItem("token", result?.data?.token);
       saveUserData();
       navigate("/dashboard");
       toast.success("Logged in successfully");
     } catch (error) {
-      toast.error(error.response.data.message || "An error occurred");
+      toast.error(error?.response?.data?.message || "An error occurred");
     }
   };
 
@@ -57,7 +57,8 @@ const Login = ({ saveUserData }) => {
               {...register("email", {
                 required: "Email is required",
                 pattern: {
-                  value: /\S+@\S+\.\S+/,
+                  value:
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                   message: "Email is invalid",
                 },
               })}
