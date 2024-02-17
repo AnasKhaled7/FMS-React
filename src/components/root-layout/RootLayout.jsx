@@ -7,7 +7,7 @@ const RootLayout = ({ userData }) => {
     <main className="d-flex">
       <Sidebar />
 
-      <div className="w-100 p-3 d-flex flex-column gap-3">
+      <div className="w-100 p-3 d-flex flex-column gap-4">
         <Navbar userData={userData} />
         <Outlet />
       </div>
