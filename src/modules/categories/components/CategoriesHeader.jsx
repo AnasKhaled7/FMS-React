@@ -55,7 +55,7 @@ const CategoriesHeader = ({ getCategories }) => {
           <Modal.Header closeButton>
             <Modal.Title>Add Category</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="my-2">
             <input
               type="text"
               className="form-control"

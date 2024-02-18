@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import CloseButton from "react-bootstrap/CloseButton";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import img from "../../../assets/woman-2.png";
@@ -45,10 +46,10 @@ const DeleteCategory = ({ getCategories, categoryId }) => {
 
       <Modal centered show={show} onHide={handleClose}>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Category</Modal.Title>
-          </Modal.Header>
           <Modal.Body>
+            <div className="text-end">
+              <CloseButton onClick={handleClose} />
+            </div>
             <div className="d-flex flex-column gap-2 justify-content-center align-items-center my-4">
               <div>
                 <img src={img} alt="delete category" />

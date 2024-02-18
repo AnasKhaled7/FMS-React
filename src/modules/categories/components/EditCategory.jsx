@@ -55,7 +55,7 @@ const EditCategory = ({ getCategories, categoryId, categoryName }) => {
           <Modal.Header closeButton>
             <Modal.Title>Edit Category</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="my-2">
             <input
               type="text"
               className="form-control"
