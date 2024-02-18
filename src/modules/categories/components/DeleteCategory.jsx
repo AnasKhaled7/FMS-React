@@ -43,7 +43,7 @@ const DeleteCategory = ({ getCategories, categoryId }) => {
         <i className="fa-solid fa-trash"></i> Delete
       </button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={handleClose}>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Category</Modal.Title>

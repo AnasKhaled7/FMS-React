@@ -50,7 +50,7 @@ const CategoriesHeader = ({ getCategories }) => {
         Add New Category
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={handleClose}>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header closeButton>
             <Modal.Title>Add Category</Modal.Title>

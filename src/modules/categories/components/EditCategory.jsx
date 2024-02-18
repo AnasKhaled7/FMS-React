@@ -50,7 +50,7 @@ const EditCategory = ({ getCategories, categoryId, categoryName }) => {
         <i className="fa-solid fa-pen-to-square"></i> Edit
       </button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal centered show={show} onHide={handleClose}>
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Category</Modal.Title>

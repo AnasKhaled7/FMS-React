@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Sidebar as ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import logo from "../../assets/sidebar-logo.png";
+import { ChangePassword } from "../";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -76,9 +77,7 @@ const Sidebar = () => {
         >
           Categories
         </MenuItem>
-        <MenuItem icon={<i className="fa-solid fa-lock"></i>}>
-          Change Password
-        </MenuItem>
+        <ChangePassword />
         <MenuItem
           icon={<i className="fa-solid fa-right-from-bracket"></i>}
           onClick={logout}
