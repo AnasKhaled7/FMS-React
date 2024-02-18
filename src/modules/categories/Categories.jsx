@@ -12,11 +12,7 @@ const Categories = () => {
     try {
       const result = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=10&pageNumber=1",
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
+        { headers: { Authorization: localStorage.getItem("token") } }
       );
       setCategories(result?.data?.data);
     } catch (error) {
@@ -40,7 +36,7 @@ const Categories = () => {
       <CategoriesHeader getCategories={getCategories} />
 
       {categories.length > 0 ? (
-        <table className="table text-center">
+        <table className="table table-striped text-center align-middle">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -48,7 +44,7 @@ const Categories = () => {
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-group-divider">
             {categories.map((category) => (
               <tr key={category.id}>
                 <th scope="row">{category.id}</th>
