@@ -5,5 +5,6 @@ export { default as ResetPassword } from "./auth/reset-password/ResetPassword";
 export { default as Home } from "./home/Home";
 export { default as Categories } from "./categories/Categories";
 export { default as Recipes } from "./recipes/Recipes";
+export { default as RecipeForm } from "./recipes/RecipeForm";
 export { default as Users } from "./users/Users";
 export { default as NotFound } from "./not-found/NotFound";
