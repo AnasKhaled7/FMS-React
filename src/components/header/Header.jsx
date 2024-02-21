@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Header = ({ titleBold, titleRegular, text, image }) => {
   return (
-    <div className="container-fluid header-container rounded-3">
+    <div className="container-fluid header-container rounded-3 p-4">
       <div className="text-white">
         <h2 className="fs-1 text-capitalize">
           {titleBold} <span className="fw-light">{titleRegular}</span>
