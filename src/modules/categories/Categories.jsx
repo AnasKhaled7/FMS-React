@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Header } from "../../components";
+import { Header, NoResult } from "../../components";
 import headerImg from "../../assets/man.png";
-import noDataImg from "../../assets/woman-2.png";
 import { CategoriesHeader, DeleteCategory, EditCategory } from "./components";
 
 const Categories = () => {
@@ -11,7 +10,7 @@ const Categories = () => {
   const getCategories = async () => {
     try {
       const result = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=10&pageNumber=1",
+        "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=20&pageNumber=1",
         { headers: { Authorization: localStorage.getItem("token") } }
       );
       setCategories(result?.data?.data);
@@ -46,17 +45,17 @@ const Categories = () => {
           </thead>
           <tbody className="table-group-divider">
             {categories.map((category) => (
-              <tr key={category.id}>
-                <th scope="row">{category.id}</th>
-                <td>{category.name}</td>
+              <tr key={category?.id}>
+                <th scope="row">{category?.id}</th>
+                <td>{category?.name}</td>
                 <td>
                   <EditCategory
-                    categoryId={category.id}
-                    categoryName={category.name}
+                    categoryId={category?.id}
+                    categoryName={category?.name}
                     getCategories={getCategories}
                   />
                   <DeleteCategory
-                    categoryId={category.id}
+                    categoryId={category?.id}
                     getCategories={getCategories}
                   />
                 </td>
@@ -65,13 +64,7 @@ const Categories = () => {
           </tbody>
         </table>
       ) : (
-        <div className="d-flex flex-column gap-4 justify-content-center align-items-center my-4">
-          <div>
-            <img src={noDataImg} alt="No Data" />
-            <hr className="my-0" />
-          </div>
-          <h4>No Data !</h4>
-        </div>
+        <NoResult />
       )}
     </section>
   );
