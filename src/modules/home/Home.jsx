@@ -4,7 +4,7 @@ import img from "../../assets/woman.png";
 
 const Home = ({ userData }) => {
   return (
-    <section className="d-flex flex-column gap-4">
+    <>
       <Header
         titleBold="Welcome"
         titleRegular={userData?.userName || "User"}
@@ -12,7 +12,7 @@ const Home = ({ userData }) => {
         image={img}
       />
       <RecipesHeader text="Fill Recipes" />
-    </section>
+    </>
   );
 };
 

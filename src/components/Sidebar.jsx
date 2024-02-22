@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Sidebar as ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import logo from "../../assets/sidebar-logo.png";
-import { ChangePassword } from "../";
+import logo from "../assets/sidebar-logo.png";
+import { ChangePassword } from "./";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleSidebar = () =>
     setIsCollapsed((prevIsCollapsed) => !prevIsCollapsed);

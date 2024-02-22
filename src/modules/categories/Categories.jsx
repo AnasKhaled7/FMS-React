@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Header, NoResult } from "../../components";
+import { Error, Header, Loading, NoResult } from "../../components";
 import headerImg from "../../assets/man.png";
 import { CategoriesHeader, DeleteCategory, EditCategory } from "./components";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const getCategories = async () => {
+    setIsLoading(true);
     try {
       const result = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=20&pageNumber=1",
@@ -15,7 +18,9 @@ const Categories = () => {
       );
       setCategories(result?.data?.data);
     } catch (error) {
-      console.log("error", error);
+      setError(error?.response?.data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -23,8 +28,11 @@ const Categories = () => {
     getCategories();
   }, []);
 
+  if (isLoading) return <Loading />;
+  if (error) return <Error message={error} />;
+
   return (
-    <section className="d-flex flex-column gap-4">
+    <>
       <Header
         titleBold="Categories"
         titleRegular="Item"
@@ -66,7 +74,7 @@ const Categories = () => {
       ) : (
         <NoResult />
       )}
-    </section>
+    </>
   );
 };
 

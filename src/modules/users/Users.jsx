@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Header, NoResult } from "../../components";
+import { Error, Header, Loading, NoResult } from "../../components";
 import headerImg from "../../assets/man.png";
 import profilePic from "../../assets/empty-profile-pic.png";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const getUsers = async () => {
+    setIsLoading(true);
     try {
       const result = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/Users/?pageSize=20&pageNumber=1",
@@ -15,13 +18,18 @@ const Users = () => {
       );
       setUsers(result?.data?.data);
     } catch (error) {
-      console.log("error", error);
+      setError(error?.response?.data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  if (isLoading) return <Loading />;
+  if (error) return <Error message={error} />;
 
   return (
     <section className="d-flex flex-column gap-4">

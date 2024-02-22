@@ -3,15 +3,23 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { RecipesHeader } from "../../components";
+import { Error, Loading, RecipesHeader } from "../../components";
 
 const RecipeForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [categories, setCategories] = useState([]);
+  const [isCategoriesLoading, setIsCategoriesLoading] = useState(false);
+  const [categoriesError, setCategoriesError] = useState("");
+
   const [tags, setTags] = useState([]);
+  const [isTagsLoading, setIsTagsLoading] = useState(false);
+  const [tagsError, setTagsError] = useState("");
+
   const [recipe, setRecipe] = useState(null);
+  const [isRecipeLoading, setIsRecipeLoading] = useState(false);
+  const [recipeError, setRecipeError] = useState("");
 
   const {
     register,
@@ -21,6 +29,7 @@ const RecipeForm = () => {
   } = useForm();
 
   const getCategories = async () => {
+    setIsCategoriesLoading(true);
     try {
       const result = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=20&pageNumber=1",
@@ -28,11 +37,14 @@ const RecipeForm = () => {
       );
       setCategories(result?.data?.data);
     } catch (error) {
-      console.log("error", error);
+      setCategoriesError(error?.response?.data?.message);
+    } finally {
+      setIsCategoriesLoading(false);
     }
   };
 
   const getTags = async () => {
+    setIsTagsLoading(true);
     try {
       const result = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/tag/",
@@ -40,11 +52,14 @@ const RecipeForm = () => {
       );
       setTags(result?.data);
     } catch (error) {
-      console.log("error", error);
+      setTagsError(error?.response?.data?.message);
+    } finally {
+      setIsTagsLoading(false);
     }
   };
 
   const getRecipe = async (id) => {
+    setIsRecipeLoading(true);
     try {
       const result = await axios.get(
         `https://upskilling-egypt.com:443/api/v1/Recipe/${id}`,
@@ -52,7 +67,9 @@ const RecipeForm = () => {
       );
       setRecipe(result?.data);
     } catch (error) {
-      console.log("error", error);
+      setRecipeError(error?.response?.data?.message);
+    } finally {
+      setIsRecipeLoading(false);
     }
   };
 
@@ -119,8 +136,16 @@ const RecipeForm = () => {
     }
   }, [recipe, setValue]);
 
+  if (isCategoriesLoading || isTagsLoading || isRecipeLoading) {
+    return <Loading />;
+  }
+
+  if (categoriesError || tagsError || recipeError) {
+    return <Error message={categoriesError || tagsError || recipeError} />;
+  }
+
   return (
-    <section className="d-flex flex-column gap-4">
+    <>
       <RecipesHeader text="All Recipes" />
 
       <form
@@ -267,7 +292,7 @@ const RecipeForm = () => {
           )}
         </button>
       </form>
-    </section>
+    </>
   );
 };
 

@@ -23,11 +23,7 @@ const DeleteCategory = ({ getCategories, categoryId }) => {
     try {
       await axios.delete(
         `https://upskilling-egypt.com:443/api/v1/Category/${categoryId}`,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
+        { headers: { Authorization: localStorage.getItem("token") } }
       );
       toast.success("Category deleted successfully");
       getCategories();

@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import { MenuItem } from "react-pro-sidebar";
-import { FormHeader } from "../../modules/auth/components";
+import { FormHeader } from "../modules/auth/components";
 
 const ChangePassword = () => {
   const [show, setShow] = useState(false);

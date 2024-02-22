@@ -24,11 +24,7 @@ const CategoriesHeader = ({ getCategories }) => {
       await axios.post(
         "https://upskilling-egypt.com:443/api/v1/Category/",
         data,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
+        { headers: { Authorization: localStorage.getItem("token") } }
       );
       toast.success("Category added successfully");
       getCategories();

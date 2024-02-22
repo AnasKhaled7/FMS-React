@@ -29,11 +29,7 @@ const EditCategory = ({ getCategories, categoryId, categoryName }) => {
       await axios.put(
         `https://upskilling-egypt.com:443/api/v1/Category/${categoryId}`,
         data,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
+        { headers: { Authorization: localStorage.getItem("token") } }
       );
       toast.success("Category updated successfully");
       getCategories();

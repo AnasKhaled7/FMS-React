@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-import { Header, NoResult } from "../../components";
+import { Error, Header, Loading, NoResult } from "../../components";
 import { DeleteRecipe } from "./components";
 import headerImg from "../../assets/man.png";
 import noImg from "../../assets/no-img.jpg";
@@ -11,8 +11,11 @@ const Recipes = () => {
   const navigate = useNavigate();
 
   const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const getRecipes = async () => {
+    setIsLoading(true);
     try {
       const result = await axios.get(
         "https://upskilling-egypt.com:443/api/v1/Recipe/?pageSize=20&pageNumber=1",
@@ -20,7 +23,9 @@ const Recipes = () => {
       );
       setRecipes(result?.data?.data);
     } catch (error) {
-      console.log("error", error);
+      setError(error?.response?.data?.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -28,8 +33,11 @@ const Recipes = () => {
     getRecipes();
   }, []);
 
+  if (isLoading) return <Loading />;
+  if (error) return <Error message={error} />;
+
   return (
-    <section className="d-flex flex-column gap-4">
+    <>
       <Header
         titleBold="Recipe"
         titleRegular="items"
@@ -99,7 +107,7 @@ const Recipes = () => {
       ) : (
         <NoResult />
       )}
-    </section>
+    </>
   );
 };
 
