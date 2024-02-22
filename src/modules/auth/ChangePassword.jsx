@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import { MenuItem } from "react-pro-sidebar";
-import { FormHeader } from "../modules/auth/components";
+import { FormHeader } from "./components";
 
 const ChangePassword = () => {
   const [show, setShow] = useState(false);
@@ -13,16 +13,12 @@ const ChangePassword = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
 
-  const toggleShowOldPassword = () =>
-    setShowOldPassword((prevShowOldPassword) => !prevShowOldPassword);
+  const toggleShowOldPassword = () => setShowOldPassword((prev) => !prev);
 
-  const toggleShowNewPassword = () =>
-    setShowNewPassword((prevShowNewPassword) => !prevShowNewPassword);
+  const toggleShowNewPassword = () => setShowNewPassword((prev) => !prev);
 
   const toggleShowConfirmNewPassword = () =>
-    setShowConfirmNewPassword(
-      (prevShowConfirmNewPassword) => !prevShowConfirmNewPassword
-    );
+    setShowConfirmNewPassword((prev) => !prev);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

@@ -4,7 +4,6 @@ export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as Navbar } from "./Navbar";
 export { default as Sidebar } from "./Sidebar";
 export { default as Header } from "./Header";
-export { default as ChangePassword } from "./ChangePassword";
 export { default as NoResult } from "./NoResult";
 export { default as RecipesHeader } from "./RecipesHeader";
 export { default as Loading } from "./Loading";

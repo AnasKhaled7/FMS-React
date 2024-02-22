@@ -11,13 +11,10 @@ const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const toggleShowPassword = () =>
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const toggleShowConfirmPassword = () =>
-    setShowConfirmPassword(
-      (prevShowConfirmPassword) => !prevShowConfirmPassword
-    );
+    setShowConfirmPassword((prev) => !prev);
 
   const {
     register,

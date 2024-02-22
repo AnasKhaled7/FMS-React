@@ -11,8 +11,7 @@ const Login = ({ saveUserData }) => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const toggleShowPassword = () =>
-    setShowPassword((prevShowPassword) => !prevShowPassword);
+  const toggleShowPassword = () => setShowPassword((prev) => !prev);
 
   const {
     register,
