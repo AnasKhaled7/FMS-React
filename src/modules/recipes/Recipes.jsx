@@ -84,7 +84,7 @@ const Recipes = () => {
                     alt={recipe?.name}
                     width="50"
                     height="50"
-                    className="rounded-circle object-fit-contain"
+                    className="rounded-circle object-fit-cover"
                   />
                 </td>
                 <td>{recipe?.name}</td>

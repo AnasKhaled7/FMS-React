@@ -71,7 +71,7 @@ const Users = () => {
                     alt={user?.userName}
                     width="50"
                     height="50"
-                    className="rounded-circle object-fit-contain"
+                    className="rounded-circle object-fit-cover"
                   />
                 </td>
                 <td>{user?.userName}</td>
