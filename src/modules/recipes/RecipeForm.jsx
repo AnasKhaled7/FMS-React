@@ -16,8 +16,6 @@ const RecipeForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [selectedFile, setSelectedFile] = useState(null);
-
   const [categories, setCategories] = useState([]);
   const [isCategoriesLoading, setIsCategoriesLoading] = useState(false);
   const [categoriesError, setCategoriesError] = useState("");
@@ -90,7 +88,14 @@ const RecipeForm = () => {
         if (key !== "recipeImage") formData.append(key, data[key]);
       }
 
-      if (selectedFile) formData.append("recipeImage", selectedFile);
+      if (recipe?.imagePath) {
+        formData.append(
+          "recipeImage",
+          `https://upskilling-egypt.com/${recipe?.imagePath}`
+        );
+      } else if (data.recipeImage && data.recipeImage.length > 0) {
+        formData.append("recipeImage", data.recipeImage[0]);
+      }
 
       if (id) {
         await axios.put(
@@ -121,6 +126,10 @@ const RecipeForm = () => {
       setValue("price", recipe?.price);
       setValue("categoriesIds", recipe?.category[0]?.id);
       setValue("tagId", recipe?.tag?.id);
+      setValue(
+        "recipeImage",
+        `https://upskilling-egypt.com/${recipe?.imagePath}`
+      );
     }
   }, [recipe, setValue]);
 
@@ -250,7 +259,6 @@ const RecipeForm = () => {
             type="file"
             className="form-control"
             {...register("recipeImage")}
-            onChange={(e) => setSelectedFile(e.target.files[0])}
           />
           {errors.recipeImage && (
             <div className="invalid-feedback d-block">

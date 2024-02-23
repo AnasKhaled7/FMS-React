@@ -66,7 +66,7 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer position="bottom-left" />
+      <ToastContainer position="bottom-right" />
       <RouterProvider router={router} />
     </>
   );
