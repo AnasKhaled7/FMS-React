@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Modal from "react-bootstrap/Modal";
 import { MenuItem } from "react-pro-sidebar";
 import { FormHeader } from "./components";
+import { passwordValidation } from "../../lib/validator";
 
 const ChangePassword = () => {
   const [show, setShow] = useState(false);
@@ -75,19 +76,7 @@ const ChangePassword = () => {
                 className="form-control"
                 placeholder="Old Password"
                 autoComplete="current-password"
-                {...register("oldPassword", {
-                  required: "Old password is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters long",
-                  },
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-                    message:
-                      "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character",
-                  },
-                })}
+                {...register("oldPassword", passwordValidation)}
               />
               <button
                 type="button"
@@ -119,19 +108,7 @@ const ChangePassword = () => {
                 className="form-control"
                 placeholder="New Password"
                 autoComplete="new-password"
-                {...register("newPassword", {
-                  required: "New password is required",
-                  minLength: {
-                    value: 6,
-                    message: "New password must be at least 6 characters long",
-                  },
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-                    message:
-                      "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character",
-                  },
-                })}
+                {...register("newPassword", passwordValidation)}
               />
               <button
                 type="button"

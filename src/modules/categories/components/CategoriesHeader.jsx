@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { categoryNameValidation } from "../../../lib/validator";
 
 const CategoriesHeader = ({ getCategories }) => {
   const [show, setShow] = useState(false);
@@ -57,9 +58,7 @@ const CategoriesHeader = ({ getCategories }) => {
               className="form-control"
               placeholder="Category Name"
               autoComplete="off"
-              {...register("name", {
-                required: "Category Name is required",
-              })}
+              {...register("name", categoryNameValidation)}
             />
             {errors.name && (
               <div className="invalid-feedback d-block">

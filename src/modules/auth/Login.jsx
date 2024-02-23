@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import { FormHeader } from "./components";
+import { emailValidation, passwordValidation } from "../../lib/validator";
 
 const Login = ({ saveUserData }) => {
   const navigate = useNavigate();
@@ -53,14 +54,7 @@ const Login = ({ saveUserData }) => {
               className="form-control"
               placeholder="Enter your email"
               autoComplete="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: "Email is invalid",
-                },
-              })}
+              {...register("email", emailValidation)}
             />
           </div>
           {errors.email && (
@@ -79,7 +73,7 @@ const Login = ({ saveUserData }) => {
               className="form-control"
               placeholder="Password"
               autoComplete="current-password"
-              {...register("password", { required: "Password is required" })}
+              {...register("password", passwordValidation)}
             />
             <button
               type="button"

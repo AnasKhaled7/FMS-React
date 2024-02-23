@@ -4,10 +4,19 @@ import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Error, Loading, RecipesHeader } from "../../components";
+import {
+  recipeCategoriesValidation,
+  recipeDescriptionValidation,
+  recipeNameValidation,
+  recipePriceValidation,
+  recipeTagsValidation,
+} from "../../lib/validator";
 
 const RecipeForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const [categories, setCategories] = useState([]);
   const [isCategoriesLoading, setIsCategoriesLoading] = useState(false);
@@ -78,19 +87,12 @@ const RecipeForm = () => {
       const formData = new FormData();
 
       for (let key in data) {
-        if (key !== "recipeImage") {
-          formData.append(key, data[key]);
-        }
+        if (key !== "recipeImage") formData.append(key, data[key]);
       }
 
-      if (data.recipeImage[0]) {
-        formData.append("recipeImage", data.recipeImage[0]);
-      } else {
-        formData.append("recipeImage", recipe?.imagePath);
-      }
+      if (selectedFile) formData.append("recipeImage", selectedFile);
 
       if (id) {
-        // Update existing recipe
         await axios.put(
           `https://upskilling-egypt.com:443/api/v1/Recipe/${id}`,
           formData,
@@ -98,7 +100,6 @@ const RecipeForm = () => {
         );
         toast.success("Recipe updated successfully");
       } else {
-        // Create new recipe
         await axios.post(
           "https://upskilling-egypt.com:443/api/v1/Recipe/",
           formData,
@@ -109,21 +110,9 @@ const RecipeForm = () => {
 
       navigate("/dashboard/recipes");
     } catch (error) {
-      console.log("error", error);
       toast.error(error?.response?.data?.message || "An error occurred");
     }
   };
-
-  useEffect(() => {
-    getCategories();
-    getTags();
-  }, []);
-
-  useEffect(() => {
-    if (id) {
-      getRecipe(id);
-    }
-  }, [id]);
 
   useEffect(() => {
     if (recipe) {
@@ -132,17 +121,23 @@ const RecipeForm = () => {
       setValue("price", recipe?.price);
       setValue("categoriesIds", recipe?.category[0]?.id);
       setValue("tagId", recipe?.tag?.id);
-      setValue("recipeImage", recipe?.imagePath);
     }
   }, [recipe, setValue]);
 
-  if (isCategoriesLoading || isTagsLoading || isRecipeLoading) {
-    return <Loading />;
-  }
+  useEffect(() => {
+    getCategories();
+    getTags();
+  }, []);
 
-  if (categoriesError || tagsError || recipeError) {
+  useEffect(() => {
+    if (id) getRecipe(id);
+  }, [id]);
+
+  if (isCategoriesLoading || isTagsLoading || isRecipeLoading)
+    return <Loading />;
+
+  if (categoriesError || tagsError || recipeError)
     return <Error message={categoriesError || tagsError || recipeError} />;
-  }
 
   return (
     <>
@@ -160,9 +155,7 @@ const RecipeForm = () => {
             type="text"
             className="form-control"
             placeholder="Recipe Name"
-            {...register("name", {
-              required: "Name is required",
-            })}
+            {...register("name", recipeNameValidation)}
           />
           {errors.name && (
             <div className="invalid-feedback d-block">
@@ -178,9 +171,7 @@ const RecipeForm = () => {
             className="form-control"
             placeholder="Description"
             rows={4}
-            {...register("description", {
-              required: "Description is required",
-            })}
+            {...register("description", recipeDescriptionValidation)}
           />
           {errors.description && (
             <div className="invalid-feedback d-block">
@@ -195,9 +186,7 @@ const RecipeForm = () => {
             type="number"
             className="form-control"
             placeholder="Price"
-            {...register("price", {
-              required: "Price is required",
-            })}
+            {...register("price", recipePriceValidation)}
           />
           {errors.price && (
             <div className="invalid-feedback d-block">
@@ -211,10 +200,7 @@ const RecipeForm = () => {
           <select
             className="form-select"
             aria-label="select category"
-            {...register("categoriesIds", {
-              required: "Category is required",
-            })}
-            value={recipe?.category[0]?.id || ""}
+            {...register("categoriesIds", recipeCategoriesValidation)}
           >
             <option value="">Category</option>
             {categories.map((category) => (
@@ -235,8 +221,7 @@ const RecipeForm = () => {
           <select
             className="form-select"
             aria-label="select tag"
-            {...register("tagId", { required: "Tag is required" })}
-            value={recipe?.tag?.id || ""}
+            {...register("tagId", recipeTagsValidation)}
           >
             <option value="">Tag</option>
             {tags.map((tag) => (
@@ -264,9 +249,8 @@ const RecipeForm = () => {
           <input
             type="file"
             className="form-control"
-            {...register("recipeImage", {
-              required: !recipe?.imagePath && "Image is required",
-            })}
+            {...register("recipeImage")}
+            onChange={(e) => setSelectedFile(e.target.files[0])}
           />
           {errors.recipeImage && (
             <div className="invalid-feedback d-block">

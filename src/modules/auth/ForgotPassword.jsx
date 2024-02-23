@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FormHeader } from "./components";
+import { emailValidation } from "../../lib/validator";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -45,14 +46,7 @@ const ForgotPassword = () => {
               className="form-control"
               placeholder="Enter your email"
               autoComplete="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: "Email is invalid",
-                },
-              })}
+              {...register("email", emailValidation)}
             />
           </div>
           {errors.email && (

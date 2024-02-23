@@ -4,6 +4,11 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { FormHeader } from "./components";
+import {
+  OTPValidation,
+  emailValidation,
+  passwordValidation,
+} from "../../lib/validator";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -34,7 +39,6 @@ const ResetPassword = () => {
       toast.success(result?.data?.message);
       navigate("/login");
     } catch (error) {
-      console.log(error);
       toast.error(error?.response?.data?.message || "An error occurred");
     }
   };
@@ -58,14 +62,7 @@ const ResetPassword = () => {
               className="form-control"
               placeholder="Enter your email"
               autoComplete="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value:
-                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: "Email is invalid",
-                },
-              })}
+              {...register("email", emailValidation)}
             />
           </div>
           {errors.email && (
@@ -84,17 +81,7 @@ const ResetPassword = () => {
               className="form-control"
               placeholder="OTP"
               autoComplete="off"
-              {...register("seed", {
-                required: "OTP is required",
-                minLength: {
-                  value: 4,
-                  message: "OTP must be exactly 4 characters long",
-                },
-                maxLength: {
-                  value: 4,
-                  message: "OTP must be exactly 4 characters long",
-                },
-              })}
+              {...register("seed", OTPValidation)}
             />
           </div>
           {errors.seed && (
@@ -113,19 +100,7 @@ const ResetPassword = () => {
               className="form-control"
               placeholder="New Password"
               autoComplete="new-password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long",
-                },
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-                  message:
-                    "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character",
-                },
-              })}
+              {...register("password", passwordValidation)}
             />
             <button
               type="button"
