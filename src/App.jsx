@@ -56,9 +56,14 @@ const App = () => {
       children: [
         { index: true, element: <Home userData={userData} /> },
         { path: "categories", element: <Categories /> },
-        { path: "recipes", element: <Recipes /> },
-        { path: "recipe/add", element: <RecipeForm /> },
-        { path: "recipe/edit/:id", element: <RecipeForm /> },
+        {
+          path: "recipes",
+          children: [
+            { index: true, element: <Recipes /> },
+            { path: "add-recipe", element: <RecipeForm /> },
+            { path: "edit-recipe/:id", element: <RecipeForm /> },
+          ],
+        },
         { path: "users", element: <Users /> },
       ],
     },

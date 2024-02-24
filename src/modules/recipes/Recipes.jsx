@@ -51,10 +51,7 @@ const Recipes = () => {
           <p>You can check all details</p>
         </div>
 
-        <Button
-          variant="success"
-          onClick={() => navigate("/dashboard/recipe/add")}
-        >
+        <Button variant="success" onClick={() => navigate("add-recipe")}>
           Add New Recipe
         </Button>
       </div>
@@ -92,9 +89,7 @@ const Recipes = () => {
                 <td>
                   <button
                     className="btn btn-sm btn-success me-2"
-                    onClick={() =>
-                      navigate(`/dashboard/recipe/edit/${recipe?.id}`)
-                    }
+                    onClick={() => navigate(`edit-recipe/${recipe?.id}`)}
                   >
                     <i className="fa-solid fa-pen-to-square"></i> Edit
                   </button>
