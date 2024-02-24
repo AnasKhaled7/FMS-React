@@ -14,6 +14,7 @@ import {
   Users,
   NotFound,
   ResetPassword,
+  EmailConfirmation,
 } from "./modules";
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
         { index: true, element: <Login saveUserData={saveUserData} /> },
         { path: "login", element: <Login saveUserData={saveUserData} /> },
         { path: "register", element: <Register /> },
+        { path: "email-confirmation", element: <EmailConfirmation /> },
         { path: "forgot-password", element: <ForgotPassword /> },
         { path: "reset-password", element: <ResetPassword /> },
       ],
