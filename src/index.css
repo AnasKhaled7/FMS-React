@@ -17,3 +17,9 @@
     align-items: center;
     max-height: 300px;
 }
+
+.form-header {
+    width: 100%;
+    max-width: 400px;
+    object-fit: contain;
+}

@@ -5,7 +5,7 @@ const FormHeader = ({ title, text }) => {
   return (
     <>
       <div className="text-center mb-3">
-        <img src={logo} alt="logo" className="w-75" />
+        <img src={logo} alt="logo" className="form-header" />
       </div>
 
       <h2 className="fs-4">{title}</h2>
