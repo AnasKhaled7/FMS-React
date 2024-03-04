@@ -10,3 +10,4 @@ export { default as Recipes } from "./recipes/Recipes";
 export { default as RecipeForm } from "./recipes/RecipeForm";
 export { default as Users } from "./users/Users";
 export { default as NotFound } from "./not-found/NotFound";
+export { default as Favorites } from "./favorites/Favorites";

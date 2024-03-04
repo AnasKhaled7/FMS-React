@@ -50,7 +50,6 @@ const Register = () => {
       navigate("/email-confirmation");
       toast.success(result?.data?.message || "Registered successfully");
     } catch (error) {
-      console.log(error?.response?.data);
       toast.error(error?.response?.data?.message || "An error occurred");
     }
   };

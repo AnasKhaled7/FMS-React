@@ -23,7 +23,6 @@ const EmailConfirmation = () => {
       toast.success(result?.data?.message || "Email confirmed successfully");
       navigate("/login");
     } catch (error) {
-      console.log(error?.response);
       toast.error(error?.response?.data?.message || "An error occurred");
     }
   };

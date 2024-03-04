@@ -1,15 +1,19 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
 import { Header, RecipesHeader } from "../../components";
-import img from "../../assets/woman.png";
+import headerImg from "../../assets/woman.png";
+import { UserContext } from "../../context/UserContext";
 
-const Home = ({ userData }) => {
+const Home = () => {
+  const userData = useContext(UserContext);
+
   return (
     <>
       <Header
         titleBold="Welcome"
         titleRegular={userData?.userName || "User"}
         text="This is a welcoming screen for the entry of the application, you can now see the options"
-        image={img}
+        image={headerImg}
       />
       <RecipesHeader text="Fill Recipes" />
     </>

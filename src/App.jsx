@@ -15,7 +15,9 @@ import {
   NotFound,
   ResetPassword,
   EmailConfirmation,
+  Favorites,
 } from "./modules";
+import { UserContext } from "./context/UserContext";
 
 const App = () => {
   const [userData, setUserData] = useState(null);
@@ -50,13 +52,13 @@ const App = () => {
     {
       path: "/dashboard",
       element: (
-        <ProtectedRoute userData={userData}>
-          <RootLayout userData={userData} />
+        <ProtectedRoute>
+          <RootLayout />
         </ProtectedRoute>
       ),
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <Home userData={userData} /> },
+        { index: true, element: <Home /> },
         { path: "categories", element: <Categories /> },
         {
           path: "recipes",
@@ -67,15 +69,16 @@ const App = () => {
           ],
         },
         { path: "users", element: <Users /> },
+        { path: "favorites", element: <Favorites /> },
       ],
     },
   ]);
 
   return (
-    <>
+    <UserContext.Provider value={userData}>
       <ToastContainer position="bottom-right" />
       <RouterProvider router={router} />
-    </>
+    </UserContext.Provider>
   );
 };
 

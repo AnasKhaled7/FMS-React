@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Error, Header, Loading, NoResult } from "../../components";
+import { Error, Header, Loading, NoResult, Pagination } from "../../components";
 import headerImg from "../../assets/man.png";
 import profilePic from "../../assets/empty-profile-pic.png";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const getUsers = async () => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [groups, setGroups] = useState("");
+
+  const getUsers = async (pageNumber, pageSize, groups, userName, email) => {
     setIsLoading(true);
     try {
       const result = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/Users/?pageSize=20&pageNumber=1",
-        { headers: { Authorization: localStorage.getItem("token") } }
+        "https://upskilling-egypt.com:443/api/v1/Users",
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+          params: { pageNumber, pageSize, groups, userName, email },
+        }
       );
-      setUsers(result?.data?.data);
+      setUsers(result?.data);
     } catch (error) {
       setError(error?.response?.data?.message);
     } finally {
@@ -25,14 +33,13 @@ const Users = () => {
   };
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    getUsers(pageNumber, 10, groups, userName, email);
+  }, [pageNumber, userName, email, groups]);
 
-  if (isLoading) return <Loading />;
   if (error) return <Error message={error} />;
 
   return (
-    <section className="d-flex flex-column gap-4">
+    <>
       <Header
         titleBold="Users"
         titleRegular="List"
@@ -45,47 +52,111 @@ const Users = () => {
         <p>You can check all details</p>
       </div>
 
-      {users.length > 0 ? (
-        <table className="table table-striped text-center align-middle">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Image</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Country</th>
-            </tr>
-          </thead>
-          <tbody className="table-group-divider">
-            {users.map((user) => (
-              <tr key={user?.id}>
-                <th scope="row">{user?.id}</th>
-                <td>
-                  <img
-                    src={
-                      user?.imagePath
-                        ? `https://upskilling-egypt.com/${user.imagePath}`
-                        : `${profilePic}`
-                    }
-                    alt={user?.userName}
-                    width="50"
-                    height="50"
-                    className="rounded-circle object-fit-cover"
-                  />
-                </td>
-                <td>{user?.userName}</td>
-                <td>{user?.email}</td>
-                <td>{user?.phoneNumber}</td>
-                <td>{user?.country}</td>
+      <div className="row g-4 align-items-center">
+        {/* search by username input */}
+        <div className="col-md-4">
+          <div className="input-group">
+            <input
+              type="search"
+              className="form-control"
+              placeholder="Search by username..."
+              onChange={(e) => {
+                setUserName(e.target.value);
+                setPageNumber(1);
+              }}
+            />
+            <button className="btn btn-outline-secondary fs-6">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+
+        {/* search by email input */}
+        <div className="col-md-4">
+          <div className="input-group">
+            <input
+              type="search"
+              className="form-control"
+              placeholder="Search by email..."
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setPageNumber(1);
+              }}
+            />
+            <button className="btn btn-outline-secondary fs-6">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+
+        {/* user type select */}
+        <div className="col-md-4">
+          <select
+            className="form-select"
+            aria-label="select user type"
+            onChange={(e) => setGroups(e.target.value)}
+          >
+            <option value="">User Type</option>
+
+            <option value={1}>Admin</option>
+            <option value={2}>User</option>
+          </select>
+        </div>
+      </div>
+
+      {isLoading ? (
+        <Loading />
+      ) : users?.totalNumberOfPages > 0 ? (
+        <>
+          <table className="table table-striped text-center align-middle">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Country</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="table-group-divider">
+              {users?.data?.map((user) => (
+                <tr key={user?.id}>
+                  <th scope="row">{user?.id}</th>
+                  <td>
+                    <img
+                      src={
+                        user?.imagePath
+                          ? `https://upskilling-egypt.com/${user.imagePath}`
+                          : `${profilePic}`
+                      }
+                      alt={user?.userName}
+                      width="50"
+                      height="50"
+                      className="rounded-circle object-fit-cover"
+                    />
+                  </td>
+                  <td>{user?.userName}</td>
+                  <td>{user?.email}</td>
+                  <td>{user?.phoneNumber}</td>
+                  <td>{user?.country}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {users?.totalNumberOfPages > 1 && (
+            <Pagination
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              data={users}
+            />
+          )}
+        </>
       ) : (
         <NoResult />
       )}
-    </section>
+    </>
   );
 };
 

@@ -2,13 +2,13 @@ import { Outlet } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Navbar, Sidebar } from "./";
 
-const RootLayout = ({ userData }) => {
+const RootLayout = () => {
   return (
     <main className="d-flex">
       <Sidebar />
 
       <div className="w-100 p-3 d-flex flex-column gap-4">
-        <Navbar userData={userData} />
+        <Navbar />
         <Outlet />
       </div>
     </main>

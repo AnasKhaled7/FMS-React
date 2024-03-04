@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Error, Header, Loading, NoResult } from "../../components";
+import { Error, Header, Loading, NoResult, Pagination } from "../../components";
 import headerImg from "../../assets/man.png";
 import { CategoriesHeader, DeleteCategory, EditCategory } from "./components";
 
 const Categories = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const getCategories = async () => {
+  const [pageNumber, setPageNumber] = useState(1);
+  const [name, setName] = useState("");
+
+  const getCategories = async (pageNumber, pageSize, name) => {
     setIsLoading(true);
     try {
       const result = await axios.get(
-        "https://upskilling-egypt.com:443/api/v1/Category/?pageSize=20&pageNumber=1",
-        { headers: { Authorization: localStorage.getItem("token") } }
+        "https://upskilling-egypt.com:443/api/v1/Category",
+        {
+          headers: { Authorization: localStorage.getItem("token") },
+          params: { pageNumber, pageSize, name },
+        }
       );
-      setCategories(result?.data?.data);
+      setCategories(result?.data);
     } catch (error) {
       setError(error?.response?.data?.message);
     } finally {
@@ -25,10 +31,9 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    getCategories();
-  }, []);
+    getCategories(pageNumber, 10, name);
+  }, [pageNumber, name]);
 
-  if (isLoading) return <Loading />;
   if (error) return <Error message={error} />;
 
   return (
@@ -42,35 +47,69 @@ const Categories = () => {
 
       <CategoriesHeader getCategories={getCategories} />
 
-      {categories.length > 0 ? (
-        <table className="table table-striped text-center align-middle">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody className="table-group-divider">
-            {categories.map((category) => (
-              <tr key={category?.id}>
-                <th scope="row">{category?.id}</th>
-                <td>{category?.name}</td>
-                <td>
-                  <EditCategory
-                    categoryId={category?.id}
-                    categoryName={category?.name}
-                    getCategories={getCategories}
-                  />
-                  <DeleteCategory
-                    categoryId={category?.id}
-                    getCategories={getCategories}
-                  />
-                </td>
+      <div className="row">
+        {/* search input */}
+        <div className="col-md-6">
+          <form role="search">
+            <div className="input-group">
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Search by name..."
+                onChange={(e) => {
+                  setName(e.target.value);
+                  setPageNumber(1);
+                }}
+              />
+              <button type="submit" className="btn btn-outline-secondary fs-6">
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      {isLoading ? (
+        <Loading />
+      ) : categories?.totalNumberOfPages > 0 ? (
+        <>
+          <table className="table table-striped text-center align-middle">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="table-group-divider">
+              {categories?.data.map((category) => (
+                <tr key={category?.id}>
+                  <th scope="row">{category?.id}</th>
+                  <td>{category?.name}</td>
+                  <td>
+                    <EditCategory
+                      categoryId={category?.id}
+                      categoryName={category?.name}
+                      getCategories={getCategories}
+                    />
+                    <DeleteCategory
+                      categoryId={category?.id}
+                      getCategories={getCategories}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {categories?.totalNumberOfPages > 1 && (
+            <Pagination
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              data={categories}
+            />
+          )}
+        </>
       ) : (
         <NoResult />
       )}

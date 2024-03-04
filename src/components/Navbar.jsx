@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import PropTypes from "prop-types";
+import { UserContext } from "../context/UserContext";
 
-const Navbar = ({ userData }) => {
+const Navbar = () => {
+  const userData = useContext(UserContext);
+
   return (
     <nav className="navbar bg-body-tertiary rounded-3 px-1">
       <div className="container-fluid">

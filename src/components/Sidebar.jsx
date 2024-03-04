@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Sidebar as ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import logo from "../assets/sidebar-logo.png";
 import { ChangePassword } from "../modules";
+import { UserContext } from "../context/UserContext";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+
+  const userData = useContext(UserContext);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
@@ -58,25 +61,43 @@ const Sidebar = () => {
         >
           Home
         </MenuItem>
-        <MenuItem
-          icon={<i className="fa fa-users"></i>}
-          component={<NavLink to="/dashboard/users" />}
-        >
-          Users
-        </MenuItem>
+
+        {userData?.userGroup === "SuperAdmin" && (
+          <MenuItem
+            icon={<i className="fa fa-users"></i>}
+            component={<NavLink to="/dashboard/users" />}
+          >
+            Users
+          </MenuItem>
+        )}
+
         <MenuItem
           icon={<i className="fa-solid fa-fire-flame-curved"></i>}
           component={<NavLink to="/dashboard/recipes" />}
         >
           Recipes
         </MenuItem>
-        <MenuItem
-          icon={<i className="fa-solid fa-table-cells"></i>}
-          component={<NavLink to="/dashboard/categories" />}
-        >
-          Categories
-        </MenuItem>
+
+        {userData?.userGroup === "SuperAdmin" && (
+          <MenuItem
+            icon={<i className="fa-solid fa-table-cells"></i>}
+            component={<NavLink to="/dashboard/categories" />}
+          >
+            Categories
+          </MenuItem>
+        )}
+
+        {userData?.userGroup === "SystemUser" && (
+          <MenuItem
+            icon={<i className="fa-solid fa-heart"></i>}
+            component={<NavLink to="/dashboard/favorites" />}
+          >
+            Favorites
+          </MenuItem>
+        )}
+
         <ChangePassword />
+
         <MenuItem
           icon={<i className="fa-solid fa-right-from-bracket"></i>}
           onClick={logout}

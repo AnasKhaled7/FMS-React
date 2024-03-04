@@ -8,3 +8,4 @@ export { default as NoResult } from "./NoResult";
 export { default as RecipesHeader } from "./RecipesHeader";
 export { default as Loading } from "./Loading";
 export { default as Error } from "./Error";
+export { default as Pagination } from "./Pagination";
