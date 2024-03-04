@@ -11,7 +11,7 @@ import { UserContext } from "../../context/UserContext";
 const Recipes = () => {
   const navigate = useNavigate();
 
-  const userData = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -141,8 +141,6 @@ const Recipes = () => {
     getRecipes(pageNumber, 10, name, tagId, categoryId);
   }, [pageNumber, name, tagId, categoryId]);
 
-  if (isCategoriesLoading || isTagsLoading) return <Loading />;
-
   if (error || categoriesError || tagsError || favoritesError)
     return <Error message={error || categoriesError || tagsError} />;
 
@@ -166,79 +164,86 @@ const Recipes = () => {
         </Button>
       </div>
 
-      <div className="row g-4 align-items-center">
-        {/* search input */}
-        <div className="col-md-6">
-          <div className="input-group">
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search by name..."
-              onChange={(e) => {
-                setName(e.target.value);
-                setPageNumber(1);
-              }}
-            />
-            <button className="btn btn-outline-secondary fs-6">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
-        </div>
-
-        {/* category select */}
-        <div className="col-md-3">
-          <select
-            className="form-select"
-            aria-label="select category"
-            onChange={(e) => setCategoryId(e.target.value)}
-          >
-            <option value="">Category</option>
-            {categories.map((category) => (
-              <option key={category?.id} value={category?.id}>
-                {category?.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* tags select */}
-        <div className="col-md-3">
-          <select
-            className="form-select"
-            aria-label="select tag"
-            onChange={(e) => setTagId(e.target.value)}
-          >
-            <option value="">Tag</option>
-            {tags.map((tag) => (
-              <option key={tag?.id} value={tag?.id}>
-                {tag?.name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {isLoading || isFavoritesLoading ? (
+      {isCategoriesLoading ||
+      isTagsLoading ||
+      isLoading ||
+      isFavoritesLoading ? (
         <Loading />
-      ) : recipes?.totalNumberOfPages > 0 ? (
+      ) : (
         <>
-          <RecipesTable
-            recipes={recipes}
-            getRecipes={getRecipes}
-            favorites={favorites}
-            toggleFavorite={toggleFavorite}
-          />
+          <div className="row g-4 align-items-center">
+            {/* search input */}
+            <div className="col-md-4">
+              <div className="input-group">
+                <input
+                  type="search"
+                  className="form-control"
+                  placeholder="Search by name..."
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    setPageNumber(1);
+                  }}
+                />
+                <span className="input-group-text fs-6">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </span>
+              </div>
+            </div>
 
-          {recipes?.totalNumberOfPages > 1 && (
-            <Pagination
-              pageNumber={pageNumber}
-              setPageNumber={setPageNumber}
-              data={recipes}
-            />
+            {/* category select */}
+            <div className="col-md-4">
+              <select
+                className="form-select"
+                aria-label="select category"
+                onChange={(e) => setCategoryId(e.target.value)}
+              >
+                <option value="">Category</option>
+                {categories.map((category) => (
+                  <option key={category?.id} value={category?.id}>
+                    {category?.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* tags select */}
+            <div className="col-md-4">
+              <select
+                className="form-select"
+                aria-label="select tag"
+                onChange={(e) => setTagId(e.target.value)}
+              >
+                <option value="">Tag</option>
+                {tags.map((tag) => (
+                  <option key={tag?.id} value={tag?.id}>
+                    {tag?.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {recipes?.totalNumberOfPages > 0 ? (
+            <>
+              <RecipesTable
+                recipes={recipes}
+                getRecipes={getRecipes}
+                favorites={favorites}
+                toggleFavorite={toggleFavorite}
+              />
+
+              {recipes?.totalNumberOfPages > 1 && (
+                <Pagination
+                  pageNumber={pageNumber}
+                  setPageNumber={setPageNumber}
+                  data={recipes}
+                />
+              )}
+            </>
+          ) : (
+            <NoResult />
           )}
         </>
-      ) : (
-        <NoResult />
       )}
     </>
   );

@@ -61,9 +61,9 @@ const Categories = () => {
                   setPageNumber(1);
                 }}
               />
-              <button type="submit" className="btn btn-outline-secondary fs-6">
+              <span className="input-group-text fs-6">
                 <i className="fa-solid fa-magnifying-glass"></i>
-              </button>
+              </span>
             </div>
           </form>
         </div>

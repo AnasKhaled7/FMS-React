@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import PropTypes from "prop-types";
 import { Header, RecipesHeader } from "../../components";
 import headerImg from "../../assets/woman.png";
 import { UserContext } from "../../context/UserContext";
 
 const Home = () => {
-  const userData = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   return (
     <>
@@ -18,10 +17,6 @@ const Home = () => {
       <RecipesHeader text="Fill Recipes" />
     </>
   );
-};
-
-Home.propTypes = {
-  userData: PropTypes.object,
 };
 
 export default Home;

@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import PropTypes from "prop-types";
 import { Navbar, Sidebar } from "./";
 
 const RootLayout = () => {
@@ -13,10 +12,6 @@ const RootLayout = () => {
       </div>
     </main>
   );
-};
-
-RootLayout.propTypes = {
-  userData: PropTypes.object,
 };
 
 export default RootLayout;
