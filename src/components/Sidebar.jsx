@@ -8,7 +8,7 @@ import { UserContext } from "../context/UserContext";
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  const { userData } = useContext(UserContext);
+  const userData = useContext(UserContext);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 

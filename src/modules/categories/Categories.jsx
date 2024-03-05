@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Error, Header, Loading, NoResult, Pagination } from "../../components";
+import {
+  Error,
+  Header,
+  Loading,
+  LocalSearch,
+  NoResult,
+  Pagination,
+} from "../../components";
 import headerImg from "../../assets/man.png";
 import { CategoriesHeader, DeleteCategory, EditCategory } from "./components";
 
@@ -48,25 +55,13 @@ const Categories = () => {
       <CategoriesHeader getCategories={getCategories} />
 
       <div className="row">
-        {/* search input */}
-        <div className="col-md-6">
-          <form role="search">
-            <div className="input-group">
-              <input
-                type="search"
-                className="form-control"
-                placeholder="Search by name..."
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setPageNumber(1);
-                }}
-              />
-              <span className="input-group-text fs-6">
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </span>
-            </div>
-          </form>
-        </div>
+        <LocalSearch
+          placeholder="Search by name..."
+          onChange={(e) => {
+            setName(e.target.value);
+            setPageNumber(1);
+          }}
+        />
       </div>
 
       {isLoading ? (

@@ -4,7 +4,7 @@ import headerImg from "../../assets/woman.png";
 import { UserContext } from "../../context/UserContext";
 
 const Home = () => {
-  const { userData } = useContext(UserContext);
+  const userData = useContext(UserContext);
 
   return (
     <>

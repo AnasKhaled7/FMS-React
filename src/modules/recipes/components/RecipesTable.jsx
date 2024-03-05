@@ -8,7 +8,7 @@ import { DeleteRecipe } from "./";
 const RecipesTable = ({ recipes, getRecipes, favorites, toggleFavorite }) => {
   const navigate = useNavigate();
 
-  const { userData } = useContext(UserContext);
+  const userData = useContext(UserContext);
 
   return (
     <table className="table table-striped text-center align-middle">

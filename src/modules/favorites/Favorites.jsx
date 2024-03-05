@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { Error, Header, Loading, NoResult } from "../../components";
 import headerImg from "../../assets/man.png";
-import { toast } from "react-toastify";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -46,6 +46,8 @@ const Favorites = () => {
     getFavorites();
   }, []);
 
+  if (error) return <Error message={error} />;
+
   return (
     <>
       <Header
@@ -54,8 +56,6 @@ const Favorites = () => {
         text="You can now add your items that any user can order it from the Application and you can edit"
         image={headerImg}
       />
-
-      {error && <Error message={error} />}
 
       {isLoading ? (
         <Loading />

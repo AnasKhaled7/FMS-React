@@ -20,7 +20,6 @@ import {
 import { UserContext } from "./context/UserContext";
 
 const App = () => {
-  const [token, setToken] = useState(null);
   const [userData, setUserData] = useState(null);
 
   const saveUserData = () => {
@@ -28,7 +27,6 @@ const App = () => {
 
     if (token) {
       const decodedToken = jwtDecode(token);
-      setToken(token);
       setUserData(decodedToken);
     }
   };
@@ -77,7 +75,7 @@ const App = () => {
   ]);
 
   return (
-    <UserContext.Provider value={{ userData, token }}>
+    <UserContext.Provider value={userData}>
       <ToastContainer position="bottom-right" />
       <RouterProvider router={router} />
     </UserContext.Provider>

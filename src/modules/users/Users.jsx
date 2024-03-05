@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Error, Header, Loading, NoResult, Pagination } from "../../components";
+import {
+  Error,
+  Header,
+  Loading,
+  LocalSearch,
+  NoResult,
+  Pagination,
+} from "../../components";
 import headerImg from "../../assets/man.png";
 import profilePic from "../../assets/empty-profile-pic.png";
 
@@ -53,41 +60,21 @@ const Users = () => {
       </div>
 
       <div className="row g-4 align-items-center">
-        {/* search by username input */}
-        <div className="col-md-4">
-          <div className="input-group">
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search by username..."
-              onChange={(e) => {
-                setUserName(e.target.value);
-                setPageNumber(1);
-              }}
-            />
-            <span className="input-group-text fs-6">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </span>
-          </div>
-        </div>
+        <LocalSearch
+          placeholder="Search by username..."
+          onChange={(e) => {
+            setUserName(e.target.value);
+            setPageNumber(1);
+          }}
+        />
 
-        {/* search by email input */}
-        <div className="col-md-4">
-          <div className="input-group">
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search by email..."
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setPageNumber(1);
-              }}
-            />
-            <span className="input-group-text fs-6">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </span>
-          </div>
-        </div>
+        <LocalSearch
+          placeholder="Search by email..."
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setPageNumber(1);
+          }}
+        />
 
         {/* user type select */}
         <div className="col-md-4">

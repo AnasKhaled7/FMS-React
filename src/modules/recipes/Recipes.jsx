@@ -1,17 +1,20 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
 import { toast } from "react-toastify";
-import { Error, Header, Loading, NoResult, Pagination } from "../../components";
-import { RecipesTable } from "./components";
+import {
+  Error,
+  Header,
+  Loading,
+  LocalSearch,
+  NoResult,
+  Pagination,
+} from "../../components";
+import { RecipesHeader, RecipesTable } from "./components";
 import headerImg from "../../assets/man.png";
 import { UserContext } from "../../context/UserContext";
 
 const Recipes = () => {
-  const navigate = useNavigate();
-
-  const { userData } = useContext(UserContext);
+  const userData = useContext(UserContext);
 
   const [recipes, setRecipes] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -98,7 +101,6 @@ const Recipes = () => {
   };
 
   const toggleFavorite = async (recipeId) => {
-    // Check if the favorite already exists in the favorites array
     const favorite = favorites.find(
       (favorite) => favorite.recipe.id === recipeId
     );
@@ -135,7 +137,7 @@ const Recipes = () => {
     getCategories();
     getTags();
     if (userData?.userGroup === "SystemUser") getFavorites();
-  }, [userData?.userGroup]);
+  }, []);
 
   useEffect(() => {
     getRecipes(pageNumber, 10, name, tagId, categoryId);
@@ -153,42 +155,20 @@ const Recipes = () => {
         image={headerImg}
       />
 
-      <div className="d-flex flex-column flex-sm-row align-items-center justify-content-between">
-        <div>
-          <h3 className="mb-0">Recipe Table Details</h3>
-          <p>You can check all details</p>
-        </div>
+      <RecipesHeader />
 
-        <Button variant="success" onClick={() => navigate("add-recipe")}>
-          Add New Recipe
-        </Button>
-      </div>
-
-      {isCategoriesLoading ||
-      isTagsLoading ||
-      isLoading ||
-      isFavoritesLoading ? (
+      {isCategoriesLoading || isTagsLoading || isFavoritesLoading ? (
         <Loading />
       ) : (
         <>
           <div className="row g-4 align-items-center">
-            {/* search input */}
-            <div className="col-md-4">
-              <div className="input-group">
-                <input
-                  type="search"
-                  className="form-control"
-                  placeholder="Search by name..."
-                  onChange={(e) => {
-                    setName(e.target.value);
-                    setPageNumber(1);
-                  }}
-                />
-                <span className="input-group-text fs-6">
-                  <i className="fa-solid fa-magnifying-glass"></i>
-                </span>
-              </div>
-            </div>
+            <LocalSearch
+              placeholder="Search by name..."
+              onChange={(e) => {
+                setName(e.target.value);
+                setPageNumber(1);
+              }}
+            />
 
             {/* category select */}
             <div className="col-md-4">
@@ -223,7 +203,9 @@ const Recipes = () => {
             </div>
           </div>
 
-          {recipes?.totalNumberOfPages > 0 ? (
+          {isLoading ? (
+            <Loading />
+          ) : recipes?.totalNumberOfPages > 0 ? (
             <>
               <RecipesTable
                 recipes={recipes}
