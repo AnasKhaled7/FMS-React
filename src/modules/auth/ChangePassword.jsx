@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -7,7 +8,7 @@ import { MenuItem } from "react-pro-sidebar";
 import { FormHeader } from "./components";
 import { passwordValidation } from "../../lib/validator";
 
-const ChangePassword = () => {
+const ChangePassword = ({ from }) => {
   const [show, setShow] = useState(false);
 
   const [showOldPassword, setShowOldPassword] = useState(false);
@@ -51,12 +52,18 @@ const ChangePassword = () => {
 
   return (
     <>
-      <MenuItem
-        icon={<i className="fa-solid fa-lock"></i>}
-        onClick={handleShow}
-      >
-        Change Password
-      </MenuItem>
+      {from === "sidebar" ? (
+        <MenuItem
+          icon={<i className="fa-solid fa-lock"></i>}
+          onClick={handleShow}
+        >
+          Change Password
+        </MenuItem>
+      ) : (
+        <li className="nav-item" role="button" onClick={handleShow}>
+          <p className="nav-link mb-0">Change Password</p>
+        </li>
+      )}
 
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Body className="py-3 py-md-4 px-4 px-md-5">
@@ -185,6 +192,10 @@ const ChangePassword = () => {
       </Modal>
     </>
   );
+};
+
+ChangePassword.propTypes = {
+  from: PropTypes.string,
 };
 
 export default ChangePassword;

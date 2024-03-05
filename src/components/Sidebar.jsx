@@ -96,7 +96,7 @@ const Sidebar = () => {
           </MenuItem>
         )}
 
-        <ChangePassword />
+        <ChangePassword from="sidebar" />
 
         <MenuItem
           icon={<i className="fa-solid fa-right-from-bracket"></i>}

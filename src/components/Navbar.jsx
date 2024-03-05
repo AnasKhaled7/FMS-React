@@ -1,54 +1,76 @@
 import { useContext } from "react";
 import PropTypes from "prop-types";
 import { UserContext } from "../context/UserContext";
+import logo from "../assets/sidebar-logo.png";
+import { Link } from "react-router-dom";
+import { ChangePassword } from "../modules";
 
 const Navbar = () => {
   const userData = useContext(UserContext);
 
   return (
-    <nav className="navbar bg-body-tertiary rounded-3 px-1">
+    <nav className="navbar navbar-expand-md sticky-top bg-body-tertiary rounded-3 d-block d-md-none">
       <div className="container-fluid">
-        <form role="search">
-          <div className="input-group">
-            <button type="submit" className="btn btn-outline-secondary fs-6">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-            <input
-              type="search"
-              className="form-control"
-              placeholder="Search..."
-            />
-          </div>
-        </form>
+        <Link className="navbar-brand" to="/dashboard">
+          <img src={logo} alt="logo" width="65" height="52" />
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav ms-auto align-items-center">
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard">
+                Home
+              </Link>
+            </li>
 
-        <div className="d-flex align-items-center gap-3">
-          <div className="btn-group">
-            <button type="button" className="btn">
-              {userData?.userName || "User"}
-            </button>
-            <button
-              type="button"
-              className="btn dropdown-toggle dropdown-toggle-split"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <span className="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul className="dropdown-menu dropdown-menu-end">
-              <li>
-                <a className="dropdown-item" href="">
-                  Action
-                </a>
+            {userData?.userGroup === "SuperAdmin" && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard/users">
+                  Users
+                </Link>
               </li>
-            </ul>
-          </div>
+            )}
 
-          <div className="position-relative">
-            <i className="fa-solid fa-bell"></i>
-            <span className="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-              <span className="visually-hidden">New alerts</span>
-            </span>
-          </div>
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard/recipes">
+                Recipes
+              </Link>
+            </li>
+
+            {userData?.userGroup === "SuperAdmin" && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard/categories">
+                  Categories
+                </Link>
+              </li>
+            )}
+
+            {userData?.userGroup === "SystemUser" && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard/favorites">
+                  Favorites
+                </Link>
+              </li>
+            )}
+
+            <ChangePassword from="navbar" />
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard/logout">
+                Logout
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

@@ -68,34 +68,36 @@ const Categories = () => {
         <Loading />
       ) : categories?.totalNumberOfPages > 0 ? (
         <>
-          <table className="table table-striped text-center align-middle">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="table-group-divider">
-              {categories?.data.map((category) => (
-                <tr key={category?.id}>
-                  <th scope="row">{category?.id}</th>
-                  <td>{category?.name}</td>
-                  <td>
-                    <EditCategory
-                      categoryId={category?.id}
-                      categoryName={category?.name}
-                      getCategories={getCategories}
-                    />
-                    <DeleteCategory
-                      categoryId={category?.id}
-                      getCategories={getCategories}
-                    />
-                  </td>
+          <div className="table-responsive">
+            <table className="table table-striped text-center align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="table-group-divider">
+                {categories?.data.map((category) => (
+                  <tr key={category?.id}>
+                    <th scope="row">{category?.id}</th>
+                    <td>{category?.name}</td>
+                    <td>
+                      <EditCategory
+                        categoryId={category?.id}
+                        categoryName={category?.name}
+                        getCategories={getCategories}
+                      />
+                      <DeleteCategory
+                        categoryId={category?.id}
+                        getCategories={getCategories}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {categories?.totalNumberOfPages > 1 && (
             <Pagination

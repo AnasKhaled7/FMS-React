@@ -4,7 +4,9 @@ import { Navbar, Sidebar } from "./";
 const RootLayout = () => {
   return (
     <main className="d-flex">
-      <Sidebar />
+      <div className="d-none d-md-block">
+        <Sidebar />
+      </div>
 
       <div className="w-100 p-3 d-flex flex-column gap-4">
         <Navbar />

@@ -40,7 +40,7 @@ const Users = () => {
   };
 
   useEffect(() => {
-    getUsers(pageNumber, 10, groups, userName, email);
+    getUsers(pageNumber, 20, groups, userName, email);
   }, [pageNumber, userName, email, groups]);
 
   if (error) return <Error message={error} />;
@@ -95,42 +95,44 @@ const Users = () => {
         <Loading />
       ) : users?.totalNumberOfPages > 0 ? (
         <>
-          <table className="table table-striped text-center align-middle">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Country</th>
-              </tr>
-            </thead>
-            <tbody className="table-group-divider">
-              {users?.data?.map((user) => (
-                <tr key={user?.id}>
-                  <th scope="row">{user?.id}</th>
-                  <td>
-                    <img
-                      src={
-                        user?.imagePath
-                          ? `https://upskilling-egypt.com/${user.imagePath}`
-                          : `${profilePic}`
-                      }
-                      alt={user?.userName}
-                      width="50"
-                      height="50"
-                      className="rounded-circle object-fit-cover"
-                    />
-                  </td>
-                  <td>{user?.userName}</td>
-                  <td>{user?.email}</td>
-                  <td>{user?.phoneNumber}</td>
-                  <td>{user?.country}</td>
+          <div className="table-responsive">
+            <table className="table table-striped text-center align-middle">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Country</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="table-group-divider">
+                {users?.data?.map((user) => (
+                  <tr key={user?.id}>
+                    <th scope="row">{user?.id}</th>
+                    <td>
+                      <img
+                        src={
+                          user?.imagePath
+                            ? `https://upskilling-egypt.com/${user.imagePath}`
+                            : `${profilePic}`
+                        }
+                        alt={user?.userName}
+                        width="50"
+                        height="50"
+                        className="rounded-circle object-fit-cover"
+                      />
+                    </td>
+                    <td>{user?.userName}</td>
+                    <td>{user?.email}</td>
+                    <td>{user?.phoneNumber}</td>
+                    <td>{user?.country}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
           {users?.totalNumberOfPages > 1 && (
             <Pagination

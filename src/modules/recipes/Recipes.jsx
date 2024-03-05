@@ -207,12 +207,14 @@ const Recipes = () => {
             <Loading />
           ) : recipes?.totalNumberOfPages > 0 ? (
             <>
-              <RecipesTable
-                recipes={recipes}
-                getRecipes={getRecipes}
-                favorites={favorites}
-                toggleFavorite={toggleFavorite}
-              />
+              <div className="table-responsive">
+                <RecipesTable
+                  recipes={recipes}
+                  getRecipes={getRecipes}
+                  favorites={favorites}
+                  toggleFavorite={toggleFavorite}
+                />
+              </div>
 
               {recipes?.totalNumberOfPages > 1 && (
                 <Pagination
