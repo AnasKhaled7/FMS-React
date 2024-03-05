@@ -2,11 +2,18 @@ import { useContext } from "react";
 import PropTypes from "prop-types";
 import { UserContext } from "../context/UserContext";
 import logo from "../assets/sidebar-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChangePassword } from "../modules";
 
 const Navbar = () => {
   const userData = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <nav className="navbar navbar-expand-md sticky-top bg-body-tertiary rounded-3 d-block d-md-none">
@@ -65,10 +72,8 @@ const Navbar = () => {
 
             <ChangePassword from="navbar" />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard/logout">
-                Logout
-              </Link>
+            <li className="nav-item" role="button" onClick={logout}>
+              <p className="nav-link mb-0">Logout</p>
             </li>
           </ul>
         </div>
