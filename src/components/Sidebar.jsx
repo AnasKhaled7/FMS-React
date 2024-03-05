@@ -1,23 +1,17 @@
 import { useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 import { Sidebar as ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import logo from "../assets/sidebar-logo.png";
 import { ChangePassword } from "../modules";
 import { UserContext } from "../context/UserContext";
 
-const Sidebar = () => {
-  const navigate = useNavigate();
-
+const Sidebar = ({ logout }) => {
   const userData = useContext(UserContext);
 
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
 
   return (
     <ProSidebar
@@ -107,6 +101,10 @@ const Sidebar = () => {
       </Menu>
     </ProSidebar>
   );
+};
+
+Sidebar.propTypes = {
+  logout: PropTypes.func,
 };
 
 export default Sidebar;

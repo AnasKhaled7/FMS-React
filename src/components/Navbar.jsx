@@ -2,18 +2,11 @@ import { useContext } from "react";
 import PropTypes from "prop-types";
 import { UserContext } from "../context/UserContext";
 import logo from "../assets/sidebar-logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ChangePassword } from "../modules";
 
-const Navbar = () => {
+const Navbar = ({ logout }) => {
   const userData = useContext(UserContext);
-
-  const navigate = useNavigate();
-
-  const logout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
 
   return (
     <nav className="navbar navbar-expand-md sticky-top bg-body-tertiary rounded-3 d-block d-md-none">
@@ -83,7 +76,7 @@ const Navbar = () => {
 };
 
 Navbar.propTypes = {
-  userData: PropTypes.object,
+  logout: PropTypes.func,
 };
 
 export default Navbar;
