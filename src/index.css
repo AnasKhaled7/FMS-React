@@ -23,3 +23,13 @@
     max-width: 400px;
     object-fit: contain;
 }
+
+.not-found-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("./assets/not-found-bg.png");
+    background-size: cover;
+    background-position: center;
+}
