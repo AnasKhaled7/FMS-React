@@ -44,7 +44,7 @@ const EmailConfirmation = () => {
             <input
               type="email"
               className="form-control"
-              placeholder="Enter your email"
+              placeholder="Email"
               autoComplete="email"
               {...register("email", emailValidation)}
             />

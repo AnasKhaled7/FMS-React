@@ -52,7 +52,7 @@ const Login = ({ saveUserData }) => {
             <input
               type="email"
               className="form-control"
-              placeholder="Enter your email"
+              placeholder="Email"
               autoComplete="email"
               {...register("email", emailValidation)}
             />
@@ -81,9 +81,7 @@ const Login = ({ saveUserData }) => {
               onClick={toggleShowPassword}
             >
               <i
-                className={
-                  showPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"
-                }
+                className={`fa-solid  fa-eye${showPassword ? "-slash" : ""}`}
               ></i>
             </button>
           </div>

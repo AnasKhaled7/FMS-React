@@ -44,7 +44,7 @@ const RecipesTable = ({ recipes, getRecipes, favorites, toggleFavorite }) => {
               {userData?.userGroup === "SuperAdmin" ? (
                 <>
                   <button
-                    className="btn btn-sm btn-success me-2"
+                    className="btn btn-sm btn-success me-sm-2 mb-2 mb-sm-0"
                     onClick={() => navigate(`edit-recipe/${recipe?.id}`)}
                   >
                     <i className="fa-solid fa-pen-to-square"></i> Edit

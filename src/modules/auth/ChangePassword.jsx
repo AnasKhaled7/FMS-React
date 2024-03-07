@@ -91,11 +91,9 @@ const ChangePassword = ({ from }) => {
                 onClick={toggleShowOldPassword}
               >
                 <i
-                  className={
-                    showOldPassword
-                      ? "fa-solid fa-eye-slash"
-                      : "fa-solid fa-eye"
-                  }
+                  className={`fa-solid  fa-eye${
+                    showOldPassword ? "-slash" : ""
+                  }`}
                 ></i>
               </button>
             </div>
@@ -123,11 +121,9 @@ const ChangePassword = ({ from }) => {
                 onClick={toggleShowNewPassword}
               >
                 <i
-                  className={
-                    showNewPassword
-                      ? "fa-solid fa-eye-slash"
-                      : "fa-solid fa-eye"
-                  }
+                  className={`fa-solid  fa-eye${
+                    showNewPassword ? "-slash" : ""
+                  }`}
                 ></i>
               </button>
             </div>
@@ -159,11 +155,9 @@ const ChangePassword = ({ from }) => {
                 onClick={toggleShowConfirmNewPassword}
               >
                 <i
-                  className={
-                    showConfirmNewPassword
-                      ? "fa-solid fa-eye-slash"
-                      : "fa-solid fa-eye"
-                  }
+                  className={`fa-solid  fa-eye${
+                    showConfirmNewPassword ? "-slash" : ""
+                  }`}
                 ></i>
               </button>
             </div>

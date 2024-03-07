@@ -32,7 +32,7 @@ const ForgotPassword = () => {
       <div className="bg-white rounded-3 px-4 py-3 py-md-4 px-md-5">
         <FormHeader
           title="Forgot Your Password?"
-          text="No worries! Please enter your email and we will send a password reset code"
+          text="No worries! Please enter your email and we will send a password reset code to your email"
         />
 
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +44,7 @@ const ForgotPassword = () => {
             <input
               type="email"
               className="form-control"
-              placeholder="Enter your email"
+              placeholder="Email"
               autoComplete="email"
               {...register("email", emailValidation)}
             />
@@ -58,7 +58,7 @@ const ForgotPassword = () => {
           {/* submit button */}
           <button
             type="submit"
-            className="btn btn-success btn-lg w-100 mt-5"
+            className="btn btn-success btn-lg w-100 mt-4"
             disabled={isSubmitting}
           >
             {isSubmitting ? (

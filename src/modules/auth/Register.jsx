@@ -167,9 +167,9 @@ const Register = () => {
                   onClick={toggleShowPassword}
                 >
                   <i
-                    className={
-                      showPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"
-                    }
+                    className={`fa-solid  fa-eye${
+                      showPassword ? "-slash" : ""
+                    }`}
                   ></i>
                 </button>
               </div>
@@ -203,11 +203,9 @@ const Register = () => {
                   onClick={toggleShowConfirmPassword}
                 >
                   <i
-                    className={
-                      showConfirmPassword
-                        ? "fa-solid fa-eye-slash"
-                        : "fa-solid fa-eye"
-                    }
+                    className={`fa-solid  fa-eye${
+                      showConfirmPassword ? "-slash" : ""
+                    }`}
                   ></i>
                 </button>
               </div>

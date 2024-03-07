@@ -47,7 +47,7 @@ const ResetPassword = () => {
     <div className="col-sm-10 col-md-8 col-lg-5">
       <div className="bg-white rounded-3 px-4 py-3 py-md-4 px-md-5">
         <FormHeader
-          title="Reset  Password"
+          title="Reset Password"
           text="Please Enter Your Otp or Check Your Inbox"
         />
 
@@ -60,7 +60,7 @@ const ResetPassword = () => {
             <input
               type="email"
               className="form-control"
-              placeholder="Enter your email"
+              placeholder="Email"
               autoComplete="email"
               {...register("email", emailValidation)}
             />
@@ -108,9 +108,7 @@ const ResetPassword = () => {
               onClick={toggleShowPassword}
             >
               <i
-                className={
-                  showPassword ? "fa-solid fa-eye-slash" : "fa-solid fa-eye"
-                }
+                className={`fa-solid  fa-eye${showPassword ? "-slash" : ""}`}
               ></i>
             </button>
           </div>
@@ -142,11 +140,9 @@ const ResetPassword = () => {
               onClick={toggleShowConfirmPassword}
             >
               <i
-                className={
-                  showConfirmPassword
-                    ? "fa-solid fa-eye-slash"
-                    : "fa-solid fa-eye"
-                }
+                className={`fa-solid  fa-eye${
+                  showConfirmPassword ? "-slash" : ""
+                }`}
               ></i>
             </button>
           </div>

@@ -26,7 +26,7 @@ const Navbar = ({ logout }) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto align-items-center">
+          <ul className="navbar-nav align-items-center">
             <li className="nav-item">
               <Link className="nav-link" to="/dashboard">
                 Home
